@@ -88,6 +88,26 @@ steps:
       exclude:
       - pull_request
 
+- name: \[tag\] Test Mongo 3.4
+  image: node:8.11-stretch
+  commands:
+    - echo "test mongo 3.4"
+  depends_on:
+    - Meteor build
+  when:
+    event:
+    - tag
+
+- name: \[tag\] Test Mongo 3.6
+  image: node:8.11-stretch
+  commands:
+    - echo "test mongo 3.6"
+  depends_on:
+    - Meteor build
+  when:
+    event:
+    - tag
+
 - name: Test Mongo 4.0
   image: node:8.11-stretch
   commands:
@@ -101,6 +121,8 @@ steps:
     - echo "deploy"
   depends_on:
     - Test Mongo 3.2
+    - \[tag\] Test Mongo 3.4
+    - \[tag\] Test Mongo 3.6
     - Test Mongo 3.4
     - Test Mongo 3.6
     - Test Mongo 4.0
@@ -108,6 +130,7 @@ steps:
     branch:
       include:
       - develop
+      - master
     event:
       include:
       - push
