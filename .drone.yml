@@ -65,6 +65,9 @@ steps:
   when:
     branch:
     - develop
+    event:
+      exclude:
+      - pull_request
 
 - name: Test Mongo 3.6
   image: node:8.11-stretch
@@ -75,6 +78,9 @@ steps:
   when:
     branch:
     - develop
+    event:
+      exclude:
+      - pull_request
 
 - name: Test Mongo 4.0
   image: node:8.11-stretch
@@ -90,6 +96,12 @@ steps:
   depends_on:
     - Test Mongo 3.2
     - Test Mongo 4.0
+  when:
+    branch:
+    - develop
+    event:
+      exclude:
+      - pull_request
 
 services:
 - name: mongo32
