@@ -6,7 +6,111 @@ steps:
   image: ubuntu
   commands:
     - echo "install meteor"
+
+- name: Start replicas
+  image: debian:stretch
+  commands:
+    - echo "start replicas"
+  depends_on:
+    - Install Meteor
+
+- name: Show versions
+  image: ubuntu
+  commands:
+    - echo "show versions"
+  depends_on:
+    - Start replicas
+
+- name: Npm install
+  image: ubuntu
+  commands:
+    - echo "npm install"
+  depends_on:
+    - Show versions
+
+- name: Lint
+  image: ubuntu
+  commands:
+    - echo "lint"
+  depends_on:
+    - Npm install
+
+- name: Unit test
+  image: ubuntu
+  commands:
+    - echo "unit test"
+  depends_on:
+    - Lint
+
+- name: Meteor build
+  image: node:8.11-stretch
+  commands:
+    - echo "meteor build"
+  depends_on:
+    - Unit test
+
+- name: Test Mongo 3.2
+  image: node:8.11-stretch
+  commands:
+    - echo "test mongo 3.2"
+  depends_on:
+    - Meteor build
+
+- name: Test Mongo 3.4
+  image: node:8.11-stretch
+  commands:
+    - echo "test mongo 3.4"
+  depends_on:
+    - Meteor build
   when:
+    branch:
+      include:
+      - develop
+      - master
+    event:
+      include:
+      - push
+      exclude:
+      - pull_request
+
+- name: Test Mongo 3.6
+  image: node:8.11-stretch
+  commands:
+    - echo "test mongo 3.6"
+  depends_on:
+    - Meteor build
+  when:
+    branch:
+      include:
+      - develop
+      - master
+    event:
+      include:
+      - push
+      exclude:
+      - pull_request
+
+- name: Test Mongo 4.0
+  image: node:8.11-stretch
+  commands:
+    - echo "test mongo 4.0"
+  depends_on:
+    - Meteor build
+
+- name: Deploy
+  image: node:8.11-stretch
+  commands:
+    - echo "deploy"
+  depends_on:
+    - Test Mongo 3.2
+    - Test Mongo 3.4
+    - Test Mongo 3.6
+    - Test Mongo 4.0
+  when:
+    branch:
+      include:
+      - develop
+      - master
     event:
       include:
       - push
@@ -14,7 +118,27 @@ steps:
       exclude:
       - pull_request
 
+services:
+- name: mongo32
+  image: mongo:3.2
+  ports:
+  - 27017
+  command: [mongod, --noprealloc, --smallfiles, --replSet=rs0]
+
+- name: mongo40
+  image: mongo:4.0
+  ports:
+  - 27017
+  command: [mongod, --noprealloc, --smallfiles, --replSet=rs0]
+
 trigger:
   branch:
     exclude:
     - master
+
+volumes:
+- name: meteor
+  temp: {}
+
+- name: build
+  temp: {}
