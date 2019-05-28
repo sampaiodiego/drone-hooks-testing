@@ -131,16 +131,6 @@ services:
   - 27017
   command: [mongod, --noprealloc, --smallfiles, --replSet=rs0]
 
-trigger:
-  branch:
-    exclude:
-    - master
-  event:
-    include:
-    - tag
-    exclude:
-    - pull_request
-
 volumes:
 - name: meteor
   temp: {}
