@@ -130,13 +130,24 @@ steps:
     branch:
       include:
       - develop
-      - master
     event:
       include:
       - push
-      - tag
       exclude:
       - pull_request
+
+- name: \[tag\] Deploy
+  image: node:8.11-stretch
+  commands:
+    - echo "deploy"
+  depends_on:
+    - Test Mongo 3.2
+    - \[tag\] Test Mongo 3.4
+    - \[tag\] Test Mongo 3.6
+    - Test Mongo 4.0
+  when:
+    event:
+    - tag
 
 services:
 - name: mongo32
