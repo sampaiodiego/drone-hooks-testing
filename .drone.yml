@@ -7,9 +7,6 @@ steps:
   commands:
     - echo "install meteor"
   when:
-    branch:
-      include:
-      - develop
     event:
       include:
       - push
