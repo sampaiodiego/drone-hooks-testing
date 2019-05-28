@@ -6,10 +6,6 @@ steps:
   image: ubuntu
   commands:
     - echo "install meteor"
-  when:
-    branch:
-      exclude:
-      - master
 
 - name: Start replicas
   image: debian:stretch
@@ -17,10 +13,6 @@ steps:
     - echo "start replicas"
   depends_on:
     - Install Meteor
-  when:
-    branch:
-      exclude:
-      - master
 
 - name: Show versions
   image: ubuntu
@@ -28,10 +20,6 @@ steps:
     - echo "show versions"
   depends_on:
     - Start replicas
-  when:
-    branch:
-      exclude:
-      - master
 
 - name: Npm install
   image: ubuntu
@@ -39,10 +27,6 @@ steps:
     - echo "npm install"
   depends_on:
     - Show versions
-  when:
-    branch:
-      exclude:
-      - master
 
 - name: Lint
   image: ubuntu
@@ -50,10 +34,6 @@ steps:
     - echo "lint"
   depends_on:
     - Npm install
-  when:
-    branch:
-      exclude:
-      - master
 
 - name: Unit test
   image: ubuntu
@@ -61,10 +41,6 @@ steps:
     - echo "unit test"
   depends_on:
     - Lint
-  when:
-    branch:
-      exclude:
-      - master
 
 - name: Meteor build
   image: node:8.11-stretch
@@ -72,10 +48,6 @@ steps:
     - echo "meteor build"
   depends_on:
     - Unit test
-  when:
-    branch:
-      exclude:
-      - master
 
 - name: Test Mongo 3.2
   image: node:8.11-stretch
@@ -83,10 +55,6 @@ steps:
     - echo "test mongo 3.2"
   depends_on:
     - Meteor build
-  when:
-    branch:
-      exclude:
-      - master
 
 - name: Test Mongo 3.4
   image: node:8.11-stretch
@@ -132,10 +100,6 @@ steps:
     - echo "test mongo 4.0"
   depends_on:
     - Meteor build
-  when:
-    branch:
-      exclude:
-      - master
 
 - name: Deploy
   image: node:8.11-stretch
@@ -169,6 +133,11 @@ services:
   ports:
   - 27017
   command: [mongod, --noprealloc, --smallfiles, --replSet=rs0]
+
+trigger:
+  branch:
+    exclude:
+    - master
 
 volumes:
 - name: meteor
