@@ -68,6 +68,7 @@ steps:
     event:
       include:
       - tag
+      - push
       exclude:
       - pull_request
 
@@ -83,6 +84,7 @@ steps:
     event:
       include:
       - tag
+      - push
       exclude:
       - pull_request
 
@@ -106,6 +108,7 @@ steps:
     event:
       include:
       - tag
+      - push
       exclude:
       - pull_request
 
