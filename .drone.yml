@@ -64,7 +64,8 @@ steps:
     - Meteor build
   when:
     branch:
-      exclude:
+      include:
+      - develop
       - master
     event:
       include:
@@ -80,7 +81,8 @@ steps:
     - Meteor build
   when:
     branch:
-      exclude:
+      include:
+      - develop
       - master
     event:
       include:
@@ -106,7 +108,8 @@ steps:
     - Test Mongo 4.0
   when:
     branch:
-      exclude:
+      include:
+      - develop
       - master
     event:
       include:
