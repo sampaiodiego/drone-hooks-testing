@@ -70,10 +70,12 @@ steps:
       - master
     event:
       include:
-      - tag
       - push
       exclude:
       - pull_request
+    ref:
+      include:
+      - refs/tags/*
 
 - name: Test Mongo 3.6
   image: node:8.11-stretch
@@ -89,10 +91,12 @@ steps:
       - master
     event:
       include:
-      - tag
       - push
       exclude:
       - pull_request
+    ref:
+      include:
+      - refs/tags/*
 
 - name: Test Mongo 4.0
   image: node:8.11-stretch
@@ -116,10 +120,12 @@ steps:
       - master
     event:
       include:
-      - tag
       - push
       exclude:
       - pull_request
+    ref:
+      include:
+      - refs/tags/*
 
 services:
 - name: mongo32
