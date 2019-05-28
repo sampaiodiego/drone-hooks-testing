@@ -135,6 +135,11 @@ trigger:
   branch:
     exclude:
     - master
+  event:
+    include:
+    - tag
+    exclude:
+    - pull_request
 
 volumes:
 - name: meteor
