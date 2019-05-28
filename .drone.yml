@@ -6,6 +6,10 @@ steps:
   image: ubuntu
   commands:
     - echo "install meteor"
+  when:
+    branch:
+      exclude:
+      - master
 
 - name: Start replicas
   image: debian:stretch
