@@ -132,6 +132,10 @@ steps:
     - echo "test mongo 4.0"
   depends_on:
     - Meteor build
+  when:
+    branch:
+      exclude:
+      - master
 
 - name: Deploy
   image: node:8.11-stretch
