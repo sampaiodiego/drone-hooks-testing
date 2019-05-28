@@ -67,7 +67,7 @@ steps:
     - develop
     event:
       include:
-      -tag
+      - tag
       exclude:
       - pull_request
 
@@ -82,7 +82,7 @@ steps:
     - develop
     event:
       include:
-      -tag
+      - tag
       exclude:
       - pull_request
 
@@ -105,7 +105,7 @@ steps:
     - develop
     event:
       include:
-      -tag
+      - tag
       exclude:
       - pull_request
 
