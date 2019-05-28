@@ -66,6 +66,9 @@ steps:
     branch:
     - develop
     event:
+      include:
+      - tag
+      - push
       exclude:
       - pull_request
 
@@ -79,6 +82,9 @@ steps:
     branch:
     - develop
     event:
+      include:
+      - tag
+      - push
       exclude:
       - pull_request
 
@@ -100,6 +106,9 @@ steps:
     branch:
     - develop
     event:
+      include:
+      - tag
+      - push
       exclude:
       - pull_request
 
