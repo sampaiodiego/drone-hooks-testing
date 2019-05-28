@@ -96,6 +96,12 @@ steps:
   depends_on:
     - Test Mongo 3.2
     - Test Mongo 4.0
+  when:
+    branch:
+    - develop
+    event:
+      include:
+      - tag
 
 services:
 - name: mongo32
