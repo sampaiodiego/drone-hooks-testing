@@ -56,6 +56,26 @@ steps:
   depends_on:
     - Meteor build
 
+- name: Test Mongo 3.4
+  image: node:8.11-stretch
+  commands:
+    - echo "test mongo 3.4"
+  depends_on:
+    - Meteor build
+  when:
+    branch:
+    - develop
+
+- name: Test Mongo 3.6
+  image: node:8.11-stretch
+  commands:
+    - echo "test mongo 3.6"
+  depends_on:
+    - Meteor build
+  when:
+    branch:
+    - develop
+
 - name: Test Mongo 4.0
   image: node:8.11-stretch
   commands:
