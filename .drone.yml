@@ -17,6 +17,10 @@ steps:
     - echo "start replicas"
   depends_on:
     - Install Meteor
+  when:
+    branch:
+      exclude:
+      - master
 
 - name: Show versions
   image: ubuntu
@@ -24,6 +28,10 @@ steps:
     - echo "show versions"
   depends_on:
     - Start replicas
+  when:
+    branch:
+      exclude:
+      - master
 
 - name: Npm install
   image: ubuntu
@@ -31,6 +39,10 @@ steps:
     - echo "npm install"
   depends_on:
     - Show versions
+  when:
+    branch:
+      exclude:
+      - master
 
 - name: Lint
   image: ubuntu
@@ -38,6 +50,10 @@ steps:
     - echo "lint"
   depends_on:
     - Npm install
+  when:
+    branch:
+      exclude:
+      - master
 
 - name: Unit test
   image: ubuntu
@@ -45,6 +61,10 @@ steps:
     - echo "unit test"
   depends_on:
     - Lint
+  when:
+    branch:
+      exclude:
+      - master
 
 - name: Meteor build
   image: node:8.11-stretch
@@ -52,6 +72,10 @@ steps:
     - echo "meteor build"
   depends_on:
     - Unit test
+  when:
+    branch:
+      exclude:
+      - master
 
 - name: Test Mongo 3.2
   image: node:8.11-stretch
@@ -59,6 +83,10 @@ steps:
     - echo "test mongo 3.2"
   depends_on:
     - Meteor build
+  when:
+    branch:
+      exclude:
+      - master
 
 - name: Test Mongo 3.4
   image: node:8.11-stretch
