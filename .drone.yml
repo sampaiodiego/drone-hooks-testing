@@ -66,7 +66,8 @@ steps:
     branch:
     - develop
     event:
-    - tag
+      exclude:
+      - pull_request
 
 - name: Test Mongo 3.6
   image: node:8.11-stretch
@@ -78,7 +79,8 @@ steps:
     branch:
     - develop
     event:
-    - tag
+      exclude:
+      - pull_request
 
 - name: Test Mongo 4.0
   image: node:8.11-stretch
@@ -98,7 +100,8 @@ steps:
     branch:
     - develop
     event:
-    - tag
+      exclude:
+      - pull_request
 
 services:
 - name: mongo32
