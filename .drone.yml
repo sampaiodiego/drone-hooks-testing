@@ -65,6 +65,9 @@ steps:
   when:
     branch:
     - develop
+    event:
+      include:
+      - tag
 
 - name: Test Mongo 3.6
   image: node:8.11-stretch
@@ -75,6 +78,9 @@ steps:
   when:
     branch:
     - develop
+    event:
+      include:
+      - tag
 
 - name: Test Mongo 4.0
   image: node:8.11-stretch
